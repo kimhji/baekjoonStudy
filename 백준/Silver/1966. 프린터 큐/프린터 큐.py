@@ -1,23 +1,27 @@
 import sys, collections
-N = int(sys.stdin.readline())
-for testcase in range(N):
-    fileNum, index = map(int, sys.stdin.readline().split())
-    files = collections.deque(map(int, sys.stdin.readline().split()))
-    result = 0
-    while fileNum > 0:
-        if files[0] < max(files):
-            file = files.popleft()
-            files.append(file)
-            index -= 1
-            if index < 0:
-                index += fileNum
-        else:
-            result += 1
-            if index == 0:
-                print(result)
-                break
-            files.popleft()
-            fileNum -= 1
-            index -= 1
-            if index < 0:
-                index += fileNum
+T = int(sys.stdin.readline())
+for cycle in range(T):
+    N, M = map(int,sys.stdin.readline().split())
+    inputList = collections.deque(map(int, sys.stdin.readline().split()))
+    count = 0
+    isEnd = False
+    while not isEnd:
+        maxNum = 0
+        for x in range(1, N):
+            if inputList[maxNum] < inputList[x]:
+                maxNum = x
+        for change in range(maxNum):
+            tmp = inputList.popleft()
+            inputList.append(tmp)
+            M -= 1
+            if M < 0:
+                M += N
+        if M == 0:
+            isEnd = True
+        inputList.popleft()
+        M -= 1
+        N -= 1
+        count += 1
+        if M < 0:
+            M += N
+    print(count)
