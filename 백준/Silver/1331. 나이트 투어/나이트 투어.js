@@ -50,8 +50,7 @@ let chessBoard = Array.from({ length: minmax.yLength }, () =>
 );
 let result = true;
 let preLoc = null;
-
-chess.forEach((play, index) => {
+chess.forEach((play) => {
   const loc = play.trim().split("");
   const x = loc[0].charCodeAt() - "A".charCodeAt();
   const y = parseInt(loc[1]) - 1;
@@ -66,27 +65,27 @@ chess.forEach((play, index) => {
     result = false;
   } else {
     chessBoard[y][x] = true;
-    
-    if (preLoc) {
-      if (!checkCanGo(preLoc, [y, x])) {
-        result = false;
+      if (preLoc) {
+        if (!checkCanGo(preLoc, [y, x])) {
+          result = false;
+        }
       }
-    }
-    preLoc = [y, x];
+      preLoc = [y, x];
   }
 });
 
-// 마지막 위치와 첫 번째 위치를 비교
 if (preLoc) {
   let firstLoc = chess[0].trim().split("");
-  firstLoc = [parseInt(firstLoc[1]) - 1, firstLoc[0].charCodeAt() - "A".charCodeAt()];
+  firstLoc = [
+    parseInt(firstLoc[1]) - 1,
+    firstLoc[0].charCodeAt() - "A".charCodeAt(),
+  ];
 
-  if (!checkCanGo(preLoc, firstLoc)) {
+  if (!firstLoc || !checkCanGo(preLoc, firstLoc)) {
     result = false;
   }
 }
 
-// 모든 위치가 사용되었는지 확인
 for (let boardCycleY = minmax.minY; boardCycleY < minmax.maxY; boardCycleY++) {
   for (
     let boardCycleX = minmax.minX;
@@ -102,3 +101,4 @@ if (result) {
 } else {
   console.log("Invalid");
 }
+
