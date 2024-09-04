@@ -44,7 +44,7 @@ function checkCanGo(beforeLoc, afterLoc) {
 
 const fs = require("fs");
 //const chess = fs.readFileSync("input.txt").toString().split("\n");
-const chess = fs.readFileSync("/dev/stdin").toString().split("\n").filter(Boolean);
+const chess = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 let chessBoard = Array.from({ length: minmax.yLength }, () =>
   Array(minmax.xLength).fill(false)
 );
