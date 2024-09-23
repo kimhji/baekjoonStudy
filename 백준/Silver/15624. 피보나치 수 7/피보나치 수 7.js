@@ -10,6 +10,5 @@ while (count < N) {
   count += 1;
 }
 
-const result = bag.pop();
-
-console.log(result.toString());
+let result = bag.pop();
+console.log(N === 0 ? 0 : result.toString());
