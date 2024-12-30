@@ -12,6 +12,7 @@ public class Main{
 		int idx = 0;
 		
 		int[] saveTnsArr = new int[N];
+		int errorIdx = -1;
 		initTnsArr(N, saveTnsArr);
 		
 		char[] line = br.readLine().trim().toCharArray();
@@ -20,13 +21,13 @@ public class Main{
 			if(line[i] == 'I') {
 				if(!beforeIsI) {
 					if(saveTnsArr[idx]!=-1) {
-						if(i-saveTnsArr[idx]>=2*N) {
+						if(errorIdx < saveTnsArr[idx] && i-saveTnsArr[idx]>=2*N) {
 							count++;
 						}
 					}
 				}
 				else {
-					initTnsArr(N, saveTnsArr);
+					errorIdx = i-1;
 					idx = 0;
 				}
 				saveTnsArr[idx++] = i;
@@ -35,7 +36,7 @@ public class Main{
 			}
 			else if(line[i] == 'O') {
 				if(!beforeIsI) {
-					initTnsArr(N, saveTnsArr);
+					errorIdx = i;
 					idx = 0;
 				}
 				beforeIsI = false;
