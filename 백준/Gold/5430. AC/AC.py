@@ -41,6 +41,6 @@ T = int(sys.stdin.readline().strip())
 for cycle in range(T):
     order = list(sys.stdin.readline().strip())
     N = int(sys.stdin.readline().strip())
-    arr = sys.stdin.readline().strip().strip("[]").split(",")
+    arr = sys.stdin.readline().strip()[1:-1].split(",")
 
     print(ac(order, arr, N))
