@@ -3,26 +3,30 @@ import java.io.*;
 
 
 public class Main{	
-    public static void main(String[] args) throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line = br.readLine().trim();
-        int N = Integer.parseInt(line);
-        int result = 1;
-        line = br.readLine().trim();
-        int tnsNumber = 0;
-        char [] ones=line.toCharArray();
-        		
-        for(int i = 0;i<N;i++) {
-        	tnsNumber *= 10;
-        	tnsNumber += ones[i] - '0';
-        	if (tnsNumber > 641) {
-        	    result++;
-        	    tnsNumber = ones[i] - '0';  
-        	} else if (i < N - 1 && ones[i] == '0' && ones[i + 1] == '0' && tnsNumber > 60) {
-        	    result++;
-        	    tnsNumber %= 100;
-        	}
+	public static boolean able(String s) {
+        long num = 0;
+        for (int i = 0; i < s.length(); i++) {
+            num *= 10;
+            num += s.charAt(i) - '0';
         }
-        System.out.print(result);
+        return num <= 641;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int N = Integer.parseInt(br.readLine().trim());
+        String s = br.readLine().trim();
+
+        int cnt = 0;
+        for (int i = 0; i < N; i++) {
+            if ((i + 3 == N || (i + 3 < N && s.charAt(i + 3) != '0')) && able(s.substring(i, Math.min(i + 3, N)))) {
+                i += 2;
+            } else if ((i + 2 == N || (i + 2 < N && s.charAt(i + 2) != '0')) && able(s.substring(i, Math.min(i + 2, N)))) {
+                i += 1;
+            }
+            cnt++;
+        }
+        System.out.println(cnt);
     }
 }
